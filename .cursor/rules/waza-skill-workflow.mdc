@@ -1,5 +1,5 @@
 ---
-description: End-to-end workflow for authoring Waza skills (scaffold, SKILL.md, evals, README, verification) in this repo.
+description: End-to-end workflow for authoring Waza skills (grill-me + write-a-skill, scaffold, evals, README, verification) in this repo.
 globs:
   - skills/**/*
   - evals/**/*
@@ -10,40 +10,52 @@ alwaysApply: false
 
 Follow this when adding or substantially changing a skill under `skills/` and its suite under `evals/`.
 
-## 1. Requirements
+## 1. Requirements: **grill-me**, then **write-a-skill** process
 
-- Confirm purpose, autonomy boundaries, and edge cases (repo mismatch, dirty tree, triggers) before scaffolding.
-- If the product decision is lasting, capture it in `./docs/adr/` per `AGENTS.md`.
-- Author **`SKILL.md` in English** unless the task explicitly asks otherwise.
+### grill-me (shared understanding first)
+
+- **Read and follow** the **grill-me** skill while clarifying scope: ask **one question at a time**, give a **recommended answer** each turn, and **walk every design branch** until decisions are explicit.
+- If an answer is discoverable in this repo, **inspect the codebase** instead of asking.
+- Do **not** scaffold or heavily edit the skill until product behaviour (autonomy, edge cases, triggers, limits) is agreed.
+
+### write-a-skill (structured product pass)
+
+After alignment, apply the **write-a-skill** workflow:
+
+1. **Gather requirements** — task/domain, concrete use cases, whether **scripts** vs prose-only, reference materials to bundle.
+2. **Draft** — `SKILL.md` plus `REFERENCE.md` / `EXAMPLES.md` / `scripts/` only when that skill prescribes them.
+3. **Review with the user** — coverage, gaps, and right depth before locking evals and README.
+
+Lasting technical choices still belong in `./docs/adr/` per `AGENTS.md`. **Author `SKILL.md` in English** unless the task says otherwise.
 
 ## 2. Scaffold with Waza
 
 - From the repo root: `waza new skill <skill-name>` (non-interactive heredoc is OK for CI-style runs).
 - Keep `metadata.version` and `name` aligned with the directory name under `skills/<skill-name>/`.
 
-## 3. `SKILL.md` shape
+## 3. `SKILL.md` and bundles (**write-a-skill** shape + Waza limits)
 
-- Stay within the **token budget** (`waza tokens count skills/<name>/SKILL.md`; fix with `waza check <name>`). Move long command lists to **`REFERENCE.md`** (or `references/`) next to `SKILL.md`.
-- Frontmatter `description`: include **“Use when …”** and concrete triggers; third person; under the configured limit.
-- Body: **`USE FOR` / `DO NOT USE FOR`**, routing (e.g. **UTILITY SKILL**), preconditions, numbered or clear phases, safety line.
-- Align with [agentskills.io](https://agentskills.io/) fields only (`name`, `description`, optional `license`, `metadata`, …).
+- **Structure**: default layout `SKILL.md` + optional `REFERENCE.md`, `EXAMPLES.md`, `scripts/` as in write-a-skill; body sections such as **Quick start**, **Workflows**, **Advanced** (deep detail linked out, **one level of indirection**).
+- **Description (frontmatter)**: third person; first sentence = capability; include **“Use when …”** plus concrete triggers; **≤ 1024 chars** (agentskills visibility budget) and within **Waza token** limits (`waza tokens count`, `waza check`).
+- **Length**: keep `SKILL.md` **under ~100 lines**; if not feasible, **split** per write-a-skill (domain modules, rare advanced topics)—do not stuff long command dumps into `SKILL.md`.
+- **Scripts**: add only for deterministic, repeated, or error-sensitive steps (write-a-skill guidance).
+- **Before ship, run the write-a-skill checklist** (triggers, line budget, no stale time-bound info, terminology, examples, linked refs only one hop).
 
 ## 4. Evaluations
 
 - Configure `evals/<skill-name>/eval.yaml` (`skill:` matches folder name).
-- Prefer graders that **pass under `executor: mock`** (e.g. `code` / `has_output`); add task-level `expected` that matches mock behaviour or remove brittle global regex graders.
-- Tasks: **happy path**, **one edge** (no URL, missing input, etc.), **negative / unrelated prompt** where trigger discipline matters.
-- Remove unused fixtures or keep `fixtures/.gitkeep` so the path exists.
+- Prefer graders that **pass under `executor: mock`**; align task `expected` with mock output or drop brittle global graders.
+- Cover **happy path**, **one edge**, and **negative / unrelated prompt** when triggers matter.
+- Keep `fixtures/.gitkeep` (or real fixtures) so the directory exists.
 
 ## 5. README (consumer docs)
 
-- In **English**: table row for the skill, how to run `waza run` / `waza check`, and **Microsoft APM** install using `owner/repo/<path-from-repo-root-to-skill-dir>` (this repo uses `skills/<name>/`).
+- In **English**: skill table row, `waza run` / `waza check`, **Microsoft APM** install with `owner/repo/<path-to-skill-from-repo-root>` (here: `skills/<name>/`).
 
 ## 6. Verify and ship
 
-- `waza check <skill-name>` — resolve token overages and schema issues.
-- `waza run` or `waza run evals/<skill-name>/eval.yaml` until **all tasks pass**.
-- Commit `skills/<name>/`, `evals/<name>/`, and README changes together when introducing a new skill.
+- `waza check <skill-name>`; `waza run` until **all tasks pass**.
+- Commit `skills/<name>/`, `evals/<name>/`, and README together for new skills.
 
 ## References
 
