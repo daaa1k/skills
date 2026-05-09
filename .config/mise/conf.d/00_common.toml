@@ -1,0 +1,40 @@
+[settings]
+install_before = "5d"
+
+[tools]
+actionlint = "latest"
+ghalint = "latest"
+zizmor = "latest"
+act = "latest"
+
+[tasks.renovate-check]
+run = "npx --yes --package renovate -- renovate-config-validator renovate.json"
+description = "Validate renovate.json"
+
+[tasks.pinact-update]
+run = "pinact run -u -m 5"
+description = "Update github actions' pinned dependencies (with minReleaseAge 5 days)"
+
+[tasks.github-actions-lint]
+run = """
+failed=0
+
+actionlint || failed=1
+ghalint run || failed=1
+zizmor . || failed=1
+
+exit $failed
+"""
+description = "Run github actions lint"
+
+[tasks.act-lint]
+run = "act push -j lint -W .github/workflows/lint.yml --container-architecture linux/amd64 ${GITHUB_TOKEN:+-s GITHUB_TOKEN=$GITHUB_TOKEN}"
+description = "Run Common Lint workflow (.github/workflows/lint.yml) locally via act; requires Docker. Set GITHUB_TOKEN if common-lint needs the API."
+
+[tasks.'copier-check:common']
+run = "copier check-update -a .copier-answers.common-config.yml"
+description = "Check updates for common template"
+
+[tasks.'copier-update:common']
+run = "copier update -a .copier-answers.common-config.yml"
+description = "Apply updates for common template"
