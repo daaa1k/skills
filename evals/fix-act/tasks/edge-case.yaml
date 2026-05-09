@@ -1,0 +1,12 @@
+id: fix-act-no-url-001
+name: No URL — latest failure on default branch
+description: |
+  User invokes fix-act without a URL; skill should target latest failure on default branch.
+tags:
+  - edge-case
+inputs:
+  prompt: |
+    Please run fix-act: fix the latest failed GitHub Actions run on the default branch for this repository (no URL).
+expected:
+  outcomes:
+    - type: task_completed

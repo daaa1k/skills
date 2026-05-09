@@ -1,0 +1,14 @@
+id: fix-act-explicit-url-001
+name: Explicit invocation with workflow URL
+description: |
+  User explicitly invokes fix-act and provides a failed Actions run URL.
+tags:
+  - basic
+  - happy-path
+inputs:
+  prompt: |
+    Invoke fix-act. Here is the failed workflow run:
+    https://github.com/octocat/Hello-World/actions/runs/12345678
+expected:
+  outcomes:
+    - type: task_completed

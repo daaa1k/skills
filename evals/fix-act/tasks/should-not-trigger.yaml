@@ -1,0 +1,15 @@
+id: fix-act-unrelated-001
+name: Unrelated prompt — no CI remediation
+description: |
+  Casual unrelated question; output must not pretend to execute the fix-act loop.
+tags:
+  - anti-trigger
+  - negative-test
+inputs:
+  prompt: "What is the capital of France?"
+expected:
+  output_not_contains:
+    - "gh run view"
+    - "fix/ci-"
+  outcomes:
+    - type: task_completed
