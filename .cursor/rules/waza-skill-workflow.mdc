@@ -1,0 +1,51 @@
+---
+description: End-to-end workflow for authoring Waza skills (scaffold, SKILL.md, evals, README, verification) in this repo.
+globs:
+  - skills/**/*
+  - evals/**/*
+alwaysApply: false
+---
+
+# Waza skill authoring workflow
+
+Follow this when adding or substantially changing a skill under `skills/` and its suite under `evals/`.
+
+## 1. Requirements
+
+- Confirm purpose, autonomy boundaries, and edge cases (repo mismatch, dirty tree, triggers) before scaffolding.
+- If the product decision is lasting, capture it in `./docs/adr/` per `AGENTS.md`.
+- Author **`SKILL.md` in English** unless the task explicitly asks otherwise.
+
+## 2. Scaffold with Waza
+
+- From the repo root: `waza new skill <skill-name>` (non-interactive heredoc is OK for CI-style runs).
+- Keep `metadata.version` and `name` aligned with the directory name under `skills/<skill-name>/`.
+
+## 3. `SKILL.md` shape
+
+- Stay within the **token budget** (`waza tokens count skills/<name>/SKILL.md`; fix with `waza check <name>`). Move long command lists to **`REFERENCE.md`** (or `references/`) next to `SKILL.md`.
+- Frontmatter `description`: include **“Use when …”** and concrete triggers; third person; under the configured limit.
+- Body: **`USE FOR` / `DO NOT USE FOR`**, routing (e.g. **UTILITY SKILL**), preconditions, numbered or clear phases, safety line.
+- Align with [agentskills.io](https://agentskills.io/) fields only (`name`, `description`, optional `license`, `metadata`, …).
+
+## 4. Evaluations
+
+- Configure `evals/<skill-name>/eval.yaml` (`skill:` matches folder name).
+- Prefer graders that **pass under `executor: mock`** (e.g. `code` / `has_output`); add task-level `expected` that matches mock behaviour or remove brittle global regex graders.
+- Tasks: **happy path**, **one edge** (no URL, missing input, etc.), **negative / unrelated prompt** where trigger discipline matters.
+- Remove unused fixtures or keep `fixtures/.gitkeep` so the path exists.
+
+## 5. README (consumer docs)
+
+- In **English**: table row for the skill, how to run `waza run` / `waza check`, and **Microsoft APM** install using `owner/repo/<path-from-repo-root-to-skill-dir>` (this repo uses `skills/<name>/`).
+
+## 6. Verify and ship
+
+- `waza check <skill-name>` — resolve token overages and schema issues.
+- `waza run` or `waza run evals/<skill-name>/eval.yaml` until **all tasks pass**.
+- Commit `skills/<name>/`, `evals/<name>/`, and README changes together when introducing a new skill.
+
+## References
+
+- [Waza CLI](https://microsoft.github.io/waza/reference/cli/)
+- [APM skills](https://microsoft.github.io/apm/guides/skills/)
