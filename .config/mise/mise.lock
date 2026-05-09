@@ -4,6 +4,34 @@
 version = "0.2.87"
 backend = "aqua:nektos/act"
 
+[tools.act."platforms.linux-arm64"]
+checksum = "sha256:c17a9fe2428a4824f61248ceb8e93db8de95d9163b0f2651ec5ccea0e6f4edc8"
+url = "https://github.com/nektos/act/releases/download/v0.2.87/act_Linux_arm64.tar.gz"
+
+[tools.act."platforms.linux-arm64-musl"]
+checksum = "sha256:c17a9fe2428a4824f61248ceb8e93db8de95d9163b0f2651ec5ccea0e6f4edc8"
+url = "https://github.com/nektos/act/releases/download/v0.2.87/act_Linux_arm64.tar.gz"
+
+[tools.act."platforms.linux-x64"]
+checksum = "sha256:9bbfca7d779f71746233ec65e47fdcb12c4c976c1c97ec085956976fcabee866"
+url = "https://github.com/nektos/act/releases/download/v0.2.87/act_Linux_x86_64.tar.gz"
+
+[tools.act."platforms.linux-x64-musl"]
+checksum = "sha256:9bbfca7d779f71746233ec65e47fdcb12c4c976c1c97ec085956976fcabee866"
+url = "https://github.com/nektos/act/releases/download/v0.2.87/act_Linux_x86_64.tar.gz"
+
+[tools.act."platforms.macos-arm64"]
+checksum = "sha256:dab0091c6f8229f955b83e3822aa24375f7a2852279d5a262446361cc3559d88"
+url = "https://github.com/nektos/act/releases/download/v0.2.87/act_Darwin_arm64.tar.gz"
+
+[tools.act."platforms.macos-x64"]
+checksum = "sha256:41077f98142b02e0bb45b181f57a068f6af86ce887d578a4da1a901b1d8f240a"
+url = "https://github.com/nektos/act/releases/download/v0.2.87/act_Darwin_x86_64.tar.gz"
+
+[tools.act."platforms.windows-x64"]
+checksum = "sha256:bb7c654b27d79fb98947e22ff846408ef8f93aab90dba6af3656b503b8811966"
+url = "https://github.com/nektos/act/releases/download/v0.2.87/act_Windows_x86_64.zip"
+
 [[tools.actionlint]]
 version = "1.7.12"
 backend = "aqua:rhysd/actionlint"
@@ -50,37 +78,51 @@ backend = "aqua:suzuki-shunsuke/ghalint"
 [tools.ghalint."platforms.linux-arm64"]
 checksum = "sha256:c3ab464130015d733bfc75a2851f4fc5b3cb966aca2ed8bc0fa2a029bc0ee6af"
 url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/ghalint_1.5.5_linux_arm64.tar.gz"
-provenance = "slsa"
+
+[tools.ghalint."platforms.linux-arm64".provenance.slsa]
+url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/multiple.intoto.jsonl"
 
 [tools.ghalint."platforms.linux-arm64-musl"]
 checksum = "sha256:c3ab464130015d733bfc75a2851f4fc5b3cb966aca2ed8bc0fa2a029bc0ee6af"
 url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/ghalint_1.5.5_linux_arm64.tar.gz"
-provenance = "slsa"
+
+[tools.ghalint."platforms.linux-arm64-musl".provenance.slsa]
+url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/multiple.intoto.jsonl"
 
 [tools.ghalint."platforms.linux-x64"]
 checksum = "sha256:579cbf9024f86a8255ce8acdd56c7792f0f9a7e76063d64cfb7b66ff65c396e4"
 url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/ghalint_1.5.5_linux_amd64.tar.gz"
-provenance = "slsa"
+
+[tools.ghalint."platforms.linux-x64".provenance.slsa]
+url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/multiple.intoto.jsonl"
 
 [tools.ghalint."platforms.linux-x64-musl"]
 checksum = "sha256:579cbf9024f86a8255ce8acdd56c7792f0f9a7e76063d64cfb7b66ff65c396e4"
 url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/ghalint_1.5.5_linux_amd64.tar.gz"
-provenance = "slsa"
+
+[tools.ghalint."platforms.linux-x64-musl".provenance.slsa]
+url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/multiple.intoto.jsonl"
 
 [tools.ghalint."platforms.macos-arm64"]
 checksum = "sha256:db969e288fc788348aa7c1323096d69df28b457c70b4194fb76f14ad058c0be7"
 url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/ghalint_1.5.5_darwin_arm64.tar.gz"
-provenance = "slsa"
+
+[tools.ghalint."platforms.macos-arm64".provenance.slsa]
+url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/multiple.intoto.jsonl"
 
 [tools.ghalint."platforms.macos-x64"]
 checksum = "sha256:ce76aeb46f051d19a618c4e89ae5ca1d37c5a06f1bac3afb261ff619fd33045f"
 url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/ghalint_1.5.5_darwin_amd64.tar.gz"
-provenance = "slsa"
+
+[tools.ghalint."platforms.macos-x64".provenance.slsa]
+url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/multiple.intoto.jsonl"
 
 [tools.ghalint."platforms.windows-x64"]
 checksum = "sha256:58c2589e7455fc05d83a28051f9098984db3fe6294f0f88aedc9691ae25eaff9"
 url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/ghalint_1.5.5_windows_amd64.zip"
-provenance = "slsa"
+
+[tools.ghalint."platforms.windows-x64".provenance.slsa]
+url = "https://github.com/suzuki-shunsuke/ghalint/releases/download/v1.5.5/multiple.intoto.jsonl"
 
 [[tools.zizmor]]
 version = "1.24.1"
