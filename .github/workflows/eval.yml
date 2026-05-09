@@ -14,10 +14,14 @@ jobs:
   eval:
     name: Run Evaluations
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
       - name: Install Azure Developer CLI
-        uses: Azure/setup-azd@v2
+        uses: Azure/setup-azd@634ad924cf8baef2257898ba5663be8d19f15aca # v2
       - name: Install waza extension
         run: |
           azd config set alpha.extensions on
@@ -27,7 +31,7 @@ jobs:
         run: azd waza run --output-dir ./results
       - name: Upload results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: eval-results
           path: ./results
