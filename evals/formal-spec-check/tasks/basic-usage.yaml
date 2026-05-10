@@ -1,0 +1,13 @@
+id: formal-spec-happy-path-001
+name: Alloy spec formalisation from repository markdown
+description: |
+  User requests bounded Alloy checks against an in-repo Markdown specification path.
+tags:
+  - basic
+  - happy-path
+inputs:
+  prompt: |
+    docs/platform/rbac/policy.md が仕様ソースです。このファイルへコロケーションする Alloy で、抜けと矛盾がないかチェックしてください。
+expected:
+  outcomes:
+    - type: task_completed

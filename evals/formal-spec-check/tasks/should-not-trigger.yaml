@@ -1,0 +1,16 @@
+id: formal-spec-unrelated-001
+name: Unrelated question — refuse full workflow
+description: |
+  Casual small talk must not impersonate Alloy execution outputs or artefacts.
+tags:
+  - anti-trigger
+  - negative-test
+inputs:
+  prompt: "What is the population of Kyoto?"
+expected:
+  output_not_contains:
+    - "basename.alloy.log"
+    - "`*.als.summary.md`"
+    - "requirements.for-"
+  outcomes:
+    - type: task_completed

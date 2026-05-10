@@ -1,0 +1,13 @@
+id: formal-spec-chat-fallback-001
+name: Fallback layout for pasted prose
+description: |
+  User lacks a persisted spec path; chat-only paste triggers neutral mirror directory guidance.
+tags:
+  - edge-case
+inputs:
+  prompt: |
+    ファイルは無いので以下が仕様全文です。...（ペースト想定）。
+    Alloy 6 CLI でモデル作成とコマンド一覧を準備してください。
+expected:
+  outcomes:
+    - type: task_completed
