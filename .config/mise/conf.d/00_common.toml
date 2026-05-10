@@ -12,8 +12,11 @@ run = "npx --yes --package renovate -- renovate-config-validator renovate.json"
 description = "Validate renovate.json"
 
 [tasks.pinact-update]
-run = "pinact run -u -m 5"
-description = "Update github actions' pinned dependencies (with minReleaseAge 5 days)"
+run = """
+pinact run -u -m 5
+pinact run -u -m 0 -i '^daaa1k.*$'
+"""
+description = "Update pinned GitHub Actions; 5d min release age except owner repos (updated with no age gate)"
 
 [tasks.github-actions-lint]
 run = """
