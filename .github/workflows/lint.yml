@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: daaa1k/common-lint@6a7517170a90fb3129892f9c8a6e6c37e82e3715 # v1.4.1
+      - uses: daaa1k/common-lint@b3e94e772d25d7d45786b598ef2a676a6b8d1234 # v1.4.5
         env:
           GITHUB_TOKEN: ${{ github.token }}
